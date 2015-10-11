@@ -11,31 +11,45 @@ Package.describe({
 });
 
 Package.onUse(function(api){
-/*
+
   api.versionsFrom('METEOR@1.0');
 
 	// Add 3rd party package dependencies
 	var packages = [
 		'check',
 		'mongo',
-		'underscore',
-		'aldeed:simple-schema@1.3.3',
-		'aldeed:collection2@2.3.3',
-		'dburles:collection-helpers@1.0.3'
+		'iron:router',
+		'percolate:velocityjs',
+		'jquery-waypoints',
+		'fastclick'
+		//'underscore',
+//		'aldeed:simple-schema@1.3.3',
+//		'aldeed:collection2@2.3.3',
+//		'dburles:collection-helpers@1.0.3'
 	];
 	api.use(packages);
 	api.imply(packages);
 
-*/ 
+ 
 	api.use("templating", "client");
+	api.use('session');
+	api.use('deps');
+	//api.use('mongo');
 
 	// Add common files
 	api.addFiles([
 		'lib/client/appbody.html',
 		'lib/client/appbody.js',
+		'lib/client/overlay.html',
+		'lib/client/overlay.js',
+		'lib/client/nav.html',
+		'lib/client/nav.js',
+		'lib/client/jquery.touchwipe.js',
+		'lib/client/helpers.js',
 		//'lib/client/material.min.css',
 		'lib/client/styles_package.css'
 	], ['client']);
+
 	// Add client-side files
 	api.addAssets([
 		//'public/images/android-logo.png'

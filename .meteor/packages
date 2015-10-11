@@ -21,3 +21,7 @@ insecure                # Allow all DB writes from clients (for prototyping)
 cardenuto10:tvmovies
 iron:router
 cardenuto10:appbody
+cardenuto10:home
+cardenuto10:about
+cardenuto10:notfound
+deps
