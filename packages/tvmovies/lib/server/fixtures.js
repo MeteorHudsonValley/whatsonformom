@@ -1,11 +1,12 @@
 var parseRecord = function (record){
+	var local_results = [0,0,0,0,0,0,0,0];
 	//console.log(record.station.preferredImage);
 	//console.log(record.station.preferredImage.width);
 	var make_id = record.startTime.toString().concat(record.stationId, record.program.tmsId);
 	//console.log(make_id);
 	var local_listing = {
 		_id :				make_id,
-		"startTime":		record.startTime,
+		"startTime":		new Date(record.startTime),
 		"endTime":			record.endTime,
 		"duration":			record.duration,
 		"qualifiers":		record.qualifiers,
@@ -45,13 +46,18 @@ var parseRecord = function (record){
 		//console.log("TV Movie match is good");
 		if (!TVMovies.findOne({_id: make_id})) {
 			if (TVMovies.insert(local_listing)) {
-				console.log("Insert listing: " + local_listing._id);
+				local_results[4] = 1;
+				//console.log("Insert listing: " + local_listing._id);
 			} else {
-				console.log("Insert failed: " + local_listing._id);
+				local_results[5] = 1;
+				//console.log("Insert failed: " + local_listing._id);
 			}
+		} else {
+			local_results[6] = 1;
 		}
 	} else {
-		console.log("TV Movie match is bad");
+		local_results[7] = 1;
+		//console.log("TV Movie match is bad");
 	}
 
 
@@ -74,16 +80,21 @@ var parseRecord = function (record){
 		//console.log("TV Movie match is good");
 		if (!TVStations.findOne({_id: local_station._id})) {
 			if (TVStations.insert(local_station)) {
-				console.log("Insert station: " + local_station._id);
+				local_results[0] = 1;
+				//console.log("Insert station: " + local_station._id);
 			} else {
-				console.log("Insert station failed: " + local_station._id);
+				local_results[1] = 1;
+				//console.log("Insert station failed: " + local_station._id);
 			}
+		} else {
+			local_results[2] = 1;
 		}
 	} else {
-		console.log("TV Station match is bad");
+		local_results[3] = 1;
+		//console.log("TV Station match is bad");
 	}
 
-	return local_station;
+	return local_results;
 };
 
 /*
@@ -92,30 +103,20 @@ LOAD CAUSE FIXTURES
 ========================================================================
 */
 Methods.loadTVMovies = function(){
-	var station = {};
-	//station = JSON.parse(Assets.getText("tvmovies.json"));
-	//station = myjson;
-	//console.log("in Method loadTVMovies");
-	//jQuery.each(myjson, function( index, value ) {
-	_.each(myjson, function(record, index){
-		//alert( index + ": " + value );
-		station = record;
-		//var myerror = check(1, String);
-		var org = parseRecord(station);
-		/*var myerror = Match.test(org, Schemas.TVStation);
-		//console.log(org);
-		if (myerror) {
-			if (!TVStations.findOne({_id: org._id})) {
-				if (TVStations.insert(org)) {
-					console.log("Insert station: " + org._id);
-				} else {
-					console.log("Insert failed: " + org._id);
-				}
-			}
-		}*/
-		//check(station, Schemas.TVStation);
-		//console.log("after check myerror: " + myerror); 
+	var local_results = [0,0,0,0,0,0,0,0];
+	_.each(tvmovies_file, function(record, index){
+		var returned_results = parseRecord(record);
+		local_results[0] += returned_results[0];
+		local_results[1] += returned_results[1];
+		local_results[2] += returned_results[2];
+		local_results[3] += returned_results[3];
+		local_results[4] += returned_results[4];
+		local_results[5] += returned_results[5];
+		local_results[6] += returned_results[6];
+		local_results[7] += returned_results[7];
 	});
+	console.log("TV Stations inserted: " + local_results[0] + " failed insert: " + local_results[1] + " duplicated: " + local_results[2] + " bad record: " + local_results[3]);
+	console.log("TV Movies (listings) inserted: " + local_results[4] + " failed insert: " + local_results[5] + " duplicated: " + local_results[6] + " bad record: " + local_results[7]);
 };
 
 /*

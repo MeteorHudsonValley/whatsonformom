@@ -1,6 +1,6 @@
-myjson = [{
-    "startTime": "2015-10-10T21:15Z",
-    "endTime": "2015-10-10T22:00Z",
+tvmovies_file = [{
+    "startTime": "2015-10-11T21:15Z",
+    "endTime": "2015-10-11T22:00Z",
     "duration": 45,
     "qualifiers": ["New"],
     "channels": ["1500"],

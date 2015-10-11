@@ -40,7 +40,8 @@ Package.onUse(function(api){
 
 	// Add client-side files
 	api.addFiles([
-		'aTemplate.html'
+		'lib/client/aTemplate.html',
+		'lib/client/aTemplate.js'
 	], ['client']);
 
 	// Add server-side files

@@ -1,3 +1,5 @@
-  console.log("here3");
+// example
+//console.log("here3");
 
-console.log(capitalise("Matt"));
+//console.log(capitalise("Matt"));
+// add stuff for server

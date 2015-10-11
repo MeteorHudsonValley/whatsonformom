@@ -191,6 +191,20 @@ Schemas.TVStation = new SimpleSchema({
 TVStations = new Mongo.Collection("tvstations");
 TVStations.attachSchema(Schemas.TVStation, {transform: true});
 
+TVMovies.helpers({
+  displayStartTime: function() {
+    return new Date(this.startTime).toLocaleTimeString();
+  },
+  displayStartDate: function() {
+    return new Date(this.startTime).toLocaleDateString();
+  }/*,
+  allStartDates: function() {
+	return _.uniq( TVMovies, true, function (TVMovies){ 
+			return TVMovies.startTime;
+		});
+  }*/
+});
+
 /* example data 
  {
     "startTime": "2015-10-10T23:00Z",
