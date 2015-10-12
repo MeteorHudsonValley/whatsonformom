@@ -45,9 +45,9 @@ Package.onUse(function(api){
 		'lib/client/nav.html',
 		'lib/client/nav.js',
 		'lib/client/jquery.touchwipe.js',
-		'lib/client/helpers.js',
+		'lib/client/helpers.js'//,
 		//'lib/client/material.min.css',
-		'lib/client/styles_package.css'
+		//'lib/client/styles.css'
 	], ['client']);
 
 	// Add client-side files

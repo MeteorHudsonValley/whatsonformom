@@ -139,6 +139,14 @@ Schemas.TVMovie = new SimpleSchema({
     "stationId": { 
 		type 	: String, 
 		optional: false
+	},
+	"moviePoster": { 
+		type 	: String, 
+		optional: true
+	},
+	"channelCallSign": {
+		type 	: String, 
+		optional: true
 	}
 });
 
@@ -197,7 +205,49 @@ TVMovies.helpers({
   },
   displayStartDate: function() {
     return new Date(this.startTime).toLocaleDateString();
-  }/*,
+  },
+  getChannelCallSign2: function() {
+	var data = TVStations.findOne({stationId: this.stationId}, {fields: {callSign: 1}});
+	console.log(data);
+	if (data) {
+		return data.callSign;
+	} else {
+		return "N/A";
+	}
+  }
+/*  moviePoster2: function() {
+	var omdbapi = 'http://www.omdbapi.com/?';
+	var build_call = omdbapi + 't=' + this.program.title + '&y=' + this.program.releaseYear + '&plot=short&r=json';
+	console.log(build_call);
+	$.getJSON( build_call, function(data) {
+		if (data.Response && data.Poster !== 'N/A') {
+			console.log( data.Poster );
+			return data.Poster;
+		} else {
+			console.log( data );
+			return "";
+		}
+	})
+	.fail(function() {
+		console.log( "error" );
+		return "";
+	});
+	
+	$.getJSON( omdbapi, {
+		t: JSON.stringify(this.program.title),
+		y: JSON.stringify(this.program.releaseYear),
+		plot: 'short',
+		r: 'json'
+	}, function(data) {
+		console.log( "in done");
+		console.log( data );
+		console.log( data.Poster );
+	})
+	.fail(function() {
+		console.log( "error" );
+	}); */
+  
+  /*,
   allStartDates: function() {
 	return _.uniq( TVMovies, true, function (TVMovies){ 
 			return TVMovies.startTime;

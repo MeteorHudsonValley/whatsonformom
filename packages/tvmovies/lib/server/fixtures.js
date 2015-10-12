@@ -1,5 +1,25 @@
 var parseRecord = function (record){
 	var local_results = [0,0,0,0,0,0,0,0];
+	/*
+	var local_moviePoster;
+	
+	var omdbapi = 'http://www.omdbapi.com/?';
+	var build_call = omdbapi + 't=' + record.program.title + '&y=' + record.program.releaseYear + '&plot=short&r=json';
+	console.log(build_call);
+	_.getJSON( build_call, function(data) {
+		if (data.Response && data.Poster !== 'N/A') {
+			console.log( data.Poster );
+			local_moviePoster = data.Poster;
+		} else {
+			console.log( data );
+			local_moviePoster = "";
+		}
+	})
+	.fail(function() {
+		console.log( "error" );
+		local_moviePoster = "";
+	});
+	*/
 	//console.log(record.station.preferredImage);
 	//console.log(record.station.preferredImage.width);
 	var make_id = record.startTime.toString().concat(record.stationId, record.program.tmsId);
@@ -39,7 +59,9 @@ var parseRecord = function (record){
 				"primary":		record.program.preferredImage.primary
 			}
 		},
-		"stationId":		record.stationId
+		"stationId":		record.stationId,
+		"moviePoster":		Methods.getPoster(record),
+		"channelCallSign":	record.station.callSign
 	};
 
 	if (Match.test(local_listing, Schemas.TVMovie)) {
@@ -119,6 +141,29 @@ Methods.loadTVMovies = function(){
 	console.log("TV Movies (listings) inserted: " + local_results[4] + " failed insert: " + local_results[5] + " duplicated: " + local_results[6] + " bad record: " + local_results[7]);
 };
 
+//Meteor.methods({
+//	getPoster: function (record) {
+Methods.getPoster = function (record) {
+		var omdbapi = 'http://www.omdbapi.com/?';
+		var build_call = omdbapi + "t='" + record.program.title + "'&y=" + record.program.releaseYear + '&plot=short&r=json';
+		//console.log(build_call);
+		//this.unblock();
+		var data_var = Meteor.http.call("get", build_call);
+		//console.log(data_var.data.Response);
+		if (data_var.data.Response) {
+			if (data_var.data.Poster !== 'N/A') {
+				//console.log( data_var.data.Poster );
+				return data_var.data.Poster;
+			} else {
+				return "images/blank_poster.jpg";
+			}
+		} else {
+			console.log( data );
+			return "images/blank_poster.jpg";
+		}
+};
+
+
 /*
 ========================================================================
 STARTING POINT
@@ -126,6 +171,8 @@ STARTING POINT
 */
 
 Meteor.startup(function(){
+
+  // turn off because a lot of data was loaded
   console.log("Clearing fixtures");
   TVStations.remove({});
   TVMovies.remove({});

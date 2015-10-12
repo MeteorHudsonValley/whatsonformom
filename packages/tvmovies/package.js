@@ -17,6 +17,7 @@ Package.onUse(function(api){
 	var packages = [
 		'check',
 		'mongo',
+		'http',
 		'underscore',
 		'aldeed:simple-schema@1.3.3',
 		'aldeed:collection2@2.3.3',

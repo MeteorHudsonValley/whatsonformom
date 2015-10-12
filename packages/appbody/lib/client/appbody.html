@@ -1,62 +1,91 @@
 
 <template name="appBody">
-  <div id="container" class="{{menuOpen}} {{overlayOpen}}">
-     <section id="menu" class="overthrow">
-      <a href="{{pathFor 'home'}}"  class="{{activePage 'home'}}">
-        <span class="wrapper-menu-item">
-          <span class="icon-home"></span>
-          <span class="title-menu">Home</span>
-        </span>
-      </a>
-      <a href="{{pathFor 'aTemplate'}}" class="{{activePage 'aTemplate'}}">
-        <span class="wrapper-menu-item">
-          <span class="icon-rss"></span>
-          <span class="title-menu">What's<br>On</span>
-        </span>
-      </a>
-<!--      <a href="{{pathFor 'recipes'}}" class="{{activePage 'recipes' 'recipe'}}">
-        <span class="wrapper-menu-item">
-          <span class="icon-category"></span>
-          <span class="title-menu">Recipes</span>
-        </span>
-      </a>
-      <a href="{{pathFor 'bookmarks'}}" class="{{activePage 'bookmarks'}}">
-        <span class="wrapper-menu-item">
-          <span class="icon-bookmark-hollow"></span>
-          <span class="title-menu">Bookmarks</span>
-        </span>
-      </a>
--->      <a href="{{pathFor 'about'}}" class="{{activePage 'about'}}">
-        <span class="wrapper-menu-item">
-          <span class="icon-question"></span>
-          <span class="title-menu">About</span>
-        </span>
-      </a>
-    </section>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.css">
+    <link rel="stylesheet" href="styles.css"> -->
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-      <div class="notifications">
-        {{#unless connected}}
-          <div class="notification">
-            <span class="icon-sync"></span>
-            <div class="title-notification">Trying to connect</div>
+      <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="android-title mdl-layout-title">
+            <img class="android-logo-image" src="images/wofm_logo.png">
+          </span>
+          <!-- Add spacer, to align navigation to the right in desktop -->
+          <div class="android-header-spacer mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <div class="android-navigation-container">
+            <nav class="android-navigation mdl-navigation">
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{{pathFor 'home'}}">Home</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{{pathFor 'aTemplate'}}">TV Movies</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{{pathFor 'about'}}">About</a>
+            </nav>
           </div>
-        {{/unless}}
-        {{#each notifications}}
-          <div class="notification">
-            <a class="btn-primary js-notification-action">{{action}}</a>
-            <div class="title-notification">{{title}}</div>
-          </div>
-        {{/each}}
+          <span class="android-mobile-title mdl-layout-title">
+            <img class="android-logo-image" src="images/wofm_logo.png">
+          </span>
+        </div>
       </div>
 
-    {{> overlay}}
+      <div class="android-drawer mdl-layout__drawer">
+        <span class="mdl-layout-title">
+          <img class="android-logo-image" src="images/wofm_logo_white.png">
+        </span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="{{pathFor 'home'}}">Home</a>
+          <div class="android-drawer-separator"></div>
+          <a class="mdl-navigation__link" href="{{pathFor 'aTemplate'}}" >TV Movies</a>
+          <div class="android-drawer-separator"></div>
+          <a class="mdl-navigation__link" href="{{pathFor 'about'}}">About</a>
+        </nav>
+      </div>
+      <div class="android-content mdl-layout__content">
+        <a name="top"></a>
+		  <div id="container" class="{{menuOpen}} {{overlayOpen}}">
 
-    <div class="content-overlay"></div>
+			  <div class="notifications">
+				{{#unless connected}}
+				  <div class="notification">
+					<span class="icon-sync"></span>
+					<div class="title-notification">Trying to connect</div>
+				  </div>
+				{{/unless}}
+				{{#each notifications}}
+				  <div class="notification">
+					<a class="btn-primary js-notification-action">{{action}}</a>
+					<div class="title-notification">{{title}}</div>
+				  </div>
+				{{/each}}
+			  </div>
 
-    <div id="content-container">
-      {{> yield}}
+			  <!--
+			  {{> overlay}}
+
+			  <div class="content-overlay"></div>
+			  -->
+
+			  
+			  <div id="content-container">
+				{{> yield}}
+			  </div>
+
+		  </div>
+      </div>
     </div>
-
-  </div>
+  </body>
 </template>
 

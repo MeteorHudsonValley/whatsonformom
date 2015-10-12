@@ -1,21 +1,28 @@
 
 <template name="about">
-	<h3>About template</h3>
-  <div class="page about">
-    {{> nav title='About' black=true}}
-
-    <div class="content-scrollable">
-<!--      <div class="bg-image about">
-        <h1 class="title-about">
-          <img src="img/app/title-about.svg" alt="Go Local"/>
-        </h1>
-      </div>
-      <div class="description-about">
-        <p>Be a local wherever you go. Connect to Local Market’s community to get the latest news, hand-picked recipes, and share with other locals. This season's recipes were chosen by San Francisco chefs Colin Kull of <a href="http://www.rangesf.com/" target="_blank" class="js-open">Range</a>, Laurie Ellen Pellicano of <a href="http://www.tartinebakery.com/" target="_blank" class="js-open">Tartine Bakery</a>, and Ren Rossini of <a href="http://www.fattedcalf.com/"  target="_blank" class="js-open">Fatted Calf</a>.</p>
-
-        <p>Local Market was made by <a href="http://percolatestudio.com" target="_blank" class="js-open">Percolate Studio</a> as an example of a cross platform mobile app built in <a href="https://www.meteor.com" target="_blank" class="js-open">Meteor</a>. The entire app is less than 1,000 lines of JavaScript. View the source on <a href="https://github.com/meteor/meteor/tree/devel/examples/localmarket" target="_blank" class="js-open">GitHub</a>.</p>
-      </div>
--->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" style="">
+      <div class="android-content mdl-layout__content">
+        <a name="top"></a>
+		<div style="margin:2%; width:96%;">
+		<img src="images/full_6491612.jpeg">
+		<h3>Member of the <a href="http://www.meetup.com/Meteor-Hudson-Valley/">Hudson Valley Meteor Meetup!</a> </h3>
+		Check out our <a href="https://gitter.im/MeteorHudsonValley">Github</a> or this <a href="https://github.com/MeteorHudsonValley/whatsonformom.git">project.</a>
+		<hr>
+		<h3>About</h3>
+		<p>This is a project that was thought of and developed for the Meteor Hackathon. </p>
+		<p>I tape a lot of movies for my Mom and I like to see and be notified of New shows. (especially premeres). I thought it would be nice to 
+		create a site that provides me the information I am looking for, if there is an easy and quick way to create it.</p>
+		<p>Meteor was a good environment for this project. Before starting it I only had gone through the 3 to do list examples and reviewed 
+		some of the local market one. My background is in enterprise development not web, actually this is just my third web application. I am 
+		happy with the result. </p>
+		<p>This was a real learning experience for me. Prior to this project (and the tutorials) I had not heard of Meteor. I had never used a router and 
+		nor did I have any experience in JSON data files. I used two different data sources for data: <ul>
+		<li>http://omdbapi.com/ - a live feed (http call) getting the poster uri</li>
+		<li>http://developer.tmsapi.com/ - provides the movie schedule (I downloaded and imported the data with the plan to make it "live"</li>
+		</ul>
+		One of the important benefits Meteor with mongodb has over tool like firebase, is that it has server side code. The design I have in mind would 
+		process the code on the server porting in the movie data from differnt locations mostly at a set time, it does not change often.</p>
+		</div>
     </div>
   </div>
 </template>

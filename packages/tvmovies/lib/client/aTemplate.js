@@ -15,7 +15,10 @@ if (Meteor.isClient) {
 			//console.log(end);
 
 //			return TVMovies.find({startTime: new Date("Sun Oct 11 2015 17:15:00 GMT-0400 (Eastern Daylight Time)")}, {sort: {startTime: 1}});
-			return TVMovies.find({startTime: { $gte : start, $lt: end }}, {sort: {startTime: 1}});
+			return TVMovies.find({ $and: [
+											{startTime: { $gte : start, $lt: end }},
+											{moviePoster: {$ne: ''}}
+									]}, {sort: {startTime: 1}}, {skip: 53}, {limit: 5});
 		},
 		getDates: function() {
 			//var startDates = TVMovies.find({}, {sort: {displayStartDate: 1}, fields: {displayStartDate: 1}}).fetch();
@@ -30,7 +33,17 @@ if (Meteor.isClient) {
 		//displayDate: function
 		movieCount: function () {
 			return TVMovies.find({}).count();
+		},
+		getChannelCallSign: function(local_stationId) {
+			var data = TVStations.findOne({stationId: local_stationId}, {fields: {callSign: 1}});
+			console.log(data);
+			if (data) {
+				return data.callSign;
+			} else {
+				return "N/A";
+			}
 		}
+
 	/*,
     hideCompleted: function () {
       return Session.get("hideCompleted");

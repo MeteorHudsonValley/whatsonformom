@@ -1,26 +1,33 @@
 <!-- packages/mplatts:simple/aTemplate.html -->
 
 <template name="aTemplate">
-	<h1>A TEMPLATE</h1>
-	
-	<h2>TVMovies ({{movieCount}})</h2>
-	<!--
-	{{#each dbMovieList}}
-		{{> movieList}}
-	{{/each}}
-	-->
+	<div class="android-more-section">
 	{{#each getDates}}
-		<h2>Date ({{headingDate}})</h2>
-		{{#each dbMovieList headingDate}}
-			{{> movieList}}
-		{{/each}}
+		<div class="android-section-title mdl-typography--display-1-color-contrast">{{headingDate}}</div>
+		<div class="android-card-container mdl-grid">
+			{{#each dbMovieList headingDate}}
+				{{> movieList}}
+			{{/each}}
+		</div>
 	{{/each}}
+	</div>
 </template>
 
 <template name="movieList">
-  <li>
-    <span class="text"><strong>{{displayStartTime}}</strong> - {{program.longDescription}}</span>
- <!--   <span class="text">{{_id}}<br><b>{{text}}</b><br>{{createdAt}}<br>checked: {{checked}}</span>
--->
- </li>
+	<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+		<div class="mdl-card__media">
+			<img src="{{moviePoster}}">
+		</div>
+		<div class="mdl-card__title">
+			<h4 class="mdl-card__title-text">{{program.title}} ({{program.releaseYear}})</h4>
+		</div>
+			<div class="mdl-card__supporting-text">
+				<span class="mdl-typography--font-light mdl-typography--subhead">{{program.shortDescription}}</span>
+			</div>
+		<div class="mdl-card__actions">
+			<a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="">
+				<span>{{displayStartTime}} {{channelCallSign}}</span>
+			</a>
+		</div>
+	</div>
 </template>
